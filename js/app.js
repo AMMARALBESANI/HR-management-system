@@ -57,7 +57,7 @@ Employer.prototype.render = function () {
 
     let img = document.createElement("img");
     img.style.cssText = "width:50%;height:100px"
-    img.src = "./img/emp.jpg";
+    img.src=`${this.ImageUrl}`;
     divEl.appendChild(img);
     let hEl1 = document.createElement("h1");
 
