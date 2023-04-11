@@ -3,13 +3,46 @@ body{
 }
 
 
+header{
+    background-color: aliceblue;
+    height: 60px;
+}
+
+
+main{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#container{
+position: relative;
+    display: flex;
+    flex-wrap: wrap;
+   
+}
+
 
 ul{
     display: flex;
     justify-content:space-evenly;
-    
+   
 }
 
-main{
-    height: 100vh;
+fieldset{
+    border: solid;
+   
+
+}
+
+
+
+footer{
+    background-color: aliceblue;
+    height: 60px;
+}
+
+ul li {
+    margin-top: 5px;
 }
