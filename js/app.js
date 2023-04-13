@@ -5,12 +5,12 @@ let form = document.getElementById("Emp-form");
 form.addEventListener("submit", addEmployer);
 
 
-function Employer(fullName, department, level, imageURL, id) {
+function Employer(fullName, department, level, ImageUrl, id) {
     this.id = id;
     this.fullName = fullName;
     this.department = department;
     this.level = level;
-    this.imageURL = imageURL;
+    this.ImageUrl = ImageUrl;
     staff.push(this);
 
 }
@@ -51,14 +51,17 @@ Employer.prototype.render = function () {
     let sec = document.getElementById("container");
 
     let divEl = document.createElement("div");
-    divEl.style.cssText = "border:solid;display:flex; flex-direction:column;align-items:center;width:15%;margin:5px 5px ; text-align: left;";
+    divEl.style.cssText = 
+    "border:solid;display:flex; flex-direction:column;align-items:center;width:18%;margin:5px 5px ; text-align: left;";
 
     sec.appendChild(divEl);
 
     let img = document.createElement("img");
     img.style.cssText = "width:50%;height:100px"
-    img.src=`${this.ImageUrl}`;
+    img.src= `${this.ImageUrl}`
+    img.alt="img"
     divEl.appendChild(img);
+
     let hEl1 = document.createElement("h1");
 
     divEl.appendChild(hEl1);
@@ -80,28 +83,9 @@ Employer.prototype.render = function () {
     let h2El2 = document.createElement("h2");
     h2El2.textContent = `${this.Salary()}`;
     divEl.appendChild(h2El2);
-    console.log(this.Salary())
+    
 }
 
-// function idGenerator(){
-//     const val = Math.floor(1000 + Math.random() * 9000);
-// }
-
-// let Ghazi = new Employer("1000", "GhaziSamer", "Administration", "senior");
-// let Lana = new Employer("1001", "Lana Ali", "Finance", "senior");
-// let Tamara = new Employer("1002", "Tamara Ayoub", "Marketing", "senior");
-// let Safi = new Employer("1003", "Safi Walid", "	Administration", "Mid-Senior");
-// let Omar = new Employer("1004", "Omar Zaid", "Development", "senior");
-// let Rana = new Employer("1005", "Rana Saleh", "Development", "junior");
-//  let Hadi = new Employer("1006", "	Hadi Ahmad", "Finance", "Mid-Senior");
-
-
-//  for(let i=0;i<staff.length;i++){
-
-//     staff[i].Salary();
-    
-//     console.log(staff[i].render())
-// }
 
 function addEmployer(e) {
     e.preventDefault()
@@ -113,7 +97,6 @@ function addEmployer(e) {
     
     newEmployer.Salary()
     newEmployer.employerId()
-  
     newEmployer.render()
 
 }
