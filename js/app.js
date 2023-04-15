@@ -4,13 +4,36 @@ var netSalary;
 let form = document.getElementById("Emp-form");
 form.addEventListener("submit", addEmployer);
 
+function addEmployer(e) {
+    e.preventDefault();
 
-function Employer(fullName, department, level, ImageUrl, id) {
-    this.id = id;
+    let fullName = e.target.fullName.value;
+    let department = e.target.Department.value;
+    let level = e.target.Level.value;
+    let ImageUrl = e.target.ImageUrl.value;
+    
+    let newEmployer = new Employer(fullName, department, level, ImageUrl);
+
+    let jsonArr = JSON.stringify(staff);
+    localStorage.setItem("ourStaff",jsonArr)
+    // const savedEmployers = [...JSON.parse(localStorage.getItem("ourStaff")), ...staff]
+    
+    // localStorage.setItem("ourStaff", savedEmployers);
+
+    newEmployer.render()
+    // newEmployer.salary()
+
+    // newEmployer.employerId();
+}
+
+function Employer(fullName, department, level, imageURL, id) {
+    this.id = idGenerator();
     this.fullName = fullName;
     this.department = department;
     this.level = level;
-    this.ImageUrl = ImageUrl;
+    this.imageURL = imageURL;
+    this.salary=this.Salary();
+    console.log(this)
     staff.push(this);
 
 }
@@ -32,13 +55,14 @@ Employer.prototype.Salary = function () {
     }
     yourSalary = Math.floor(Math.random() * (max - min) + min);
     netSalary = yourSalary - (yourSalary * (7.5 / 100));
-    
+
     return netSalary;
 }
 
-Employer.prototype.employerId = function () {
-    this.id = idGenerator();
-}
+// Employer.prototype.employerId = function () {
+//     // this.id = idGenerator();
+//     this.id=Math.floor(1000 + Math.random() * 9000);
+// }
 
 function idGenerator() {
     return Math.floor(1000 + Math.random() * 9000);
@@ -51,53 +75,84 @@ Employer.prototype.render = function () {
     let sec = document.getElementById("container");
 
     let divEl = document.createElement("div");
-    divEl.style.cssText = 
-    "border:solid;display:flex; flex-direction:column;align-items:center;width:18%;margin:5px 5px ; text-align: left;";
+    divEl.style.cssText = "border:solid;display:flex;flex-direction:column;align-items:center;width:15%;margin:5px 5px;text-align: left;";
 
     sec.appendChild(divEl);
 
-    let img = document.createElement("img");
-    img.style.cssText = "width:50%;height:100px"
-    img.src= `${this.ImageUrl}`
-    img.alt="img"
-    divEl.appendChild(img);
+    getStaff()
 
-    let hEl1 = document.createElement("h1");
-
-    divEl.appendChild(hEl1);
-
-    let h2El = document.createElement("h2");
-    h2El.textContent = ` Name:${this.fullName} id:${this.id}`;
-    divEl.appendChild(h2El);
+    if (staff == null) {
+        staff = []
+    };
 
 
 
-    let pEl1 = document.createElement("p");
-    pEl1.textContent = `department:${this.department}`;
-    divEl.appendChild(pEl1);
+    for (let i = 0; i < staff.length; i++) {
 
-    let pEl2 = document.createElement("p");
-    pEl2.textContent = `level:${this.level}`;
-    divEl.appendChild(pEl2);
+        let img = document.createElement("img");
+        img.style.cssText = "width:50%;height:100px"
+        img.src = `${staff[i].ImageUrl}`;
+        divEl.appendChild(img);
 
-    let h2El2 = document.createElement("h2");
-    h2El2.textContent = `${this.Salary()}`;
-    divEl.appendChild(h2El2);
-    
+        // let hEl1 = document.createElement("h1");
+        // hEl1.textContent = `TEST`;
+        // divEl.appendChild(hEl1);
+
+        let h2El = document.createElement("h2");
+        h2El.textContent = ` Name:${staff[i].fullName} id:${this.id}`;
+        divEl.appendChild(h2El);
+
+
+
+        let pEl1 = document.createElement("p");
+        pEl1.textContent = `department:${staff[i].department}`;
+        divEl.appendChild(pEl1);
+
+        let pEl2 = document.createElement("p");
+        pEl2.textContent = `level:${staff[i].level}`;
+        divEl.appendChild(pEl2);
+
+        let h2El2 = document.createElement("h2");
+        h2El2.textContent = `Salary:${this.salary}`;
+        divEl.appendChild(h2El2);
+
+
+
+    }
+
+
+}
+
+// function idGenerator(){
+//     const val = Math.floor(1000 + Math.random() * 9000);
+// }
+
+// let Ghazi = new Employer("1000", "GhaziSamer", "Administration", "senior");
+// let Lana = new Employer("1001", "Lana Ali", "Finance", "senior");
+// let Tamara = new Employer("1002", "Tamara Ayoub", "Marketing", "senior");
+// let Safi = new Employer("1003", "Safi Walid", "	Administration", "Mid-Senior");
+// let Omar = new Employer("1004", "Omar Zaid", "Development", "senior");
+// let Rana = new Employer("1005", "Rana Saleh", "Development", "junior");
+//  let Hadi = new Employer("1006", "	Hadi Ahmad", "Finance", "Mid-Senior");
+
+
+//  for(let i=0;i<staff.length;i++){
+
+//     staff[i].Salary();
+
+//     console.log(staff[i].render())
+// }
+
+
+
+function getStaff() {
+    let jsonArr = localStorage.getItem("ourStaff");
+    let dataFormStorage = JSON.parse(jsonArr);
+    if(dataFormStorage) staff = dataFormStorage;
 }
 
 
-function addEmployer(e) {
-    e.preventDefault()
-    let FullName = e.target.FullName.value;
-    let department = e.target.Department.value;
-    let level = e.target.Level.value;
-    let ImageUrl = e.target.ImageUrl.value;
-    let newEmployer = new Employer(FullName, department, level, ImageUrl);
-    
-    newEmployer.Salary()
-    newEmployer.employerId()
-    newEmployer.render()
 
-}
+ getStaff()
+
 
