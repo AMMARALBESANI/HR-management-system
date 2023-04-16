@@ -58,7 +58,8 @@ Employer.prototype.render = function () {
 
     let img = document.createElement("img");
     img.style.cssText = "width:50%;height:100px"
-    img.src= `${this.ImageUrl}`
+    img.src= `${this.ImageUrl}`? `${this.ImageUrl}`:
+    "https://icon-library.com/images/employee-icon-png/employee-icon-png-15.jpg";
     img.alt="img"
     divEl.appendChild(img);
 
