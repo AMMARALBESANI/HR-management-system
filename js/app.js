@@ -12,7 +12,7 @@ function addEmployer(e) {
   let level = e.target.Level.value;
   let ImageURL = e.target.ImageURL.value;
 
-  new Employer(fullName, department, level, ImageUrl);
+  new Employer(fullName, department, level, ImageURL);
 
   let jsonArr = JSON.stringify(staff);
   localStorage.setItem("ourStaff", jsonArr);
