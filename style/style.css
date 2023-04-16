@@ -65,3 +65,11 @@ footer{
 ul li {
     margin-top: 5px;
 }
+
+th,td{
+    border: solid;
+}
+
+td{
+    text-align: center;
+}
