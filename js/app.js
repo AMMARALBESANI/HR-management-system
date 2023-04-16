@@ -72,7 +72,7 @@ function render(staff) {
 
     let img = document.createElement("img");
     img.style.cssText = "width:50%;height:100px"
-    img.src= `${this.ImageUrl}`? `${this.ImageUrl}`:
+    img.src= `${staff[i].ImageURL}`? `${staff[i].ImageURL}`:
     "https://icon-library.com/images/employee-icon-png/employee-icon-png-15.jpg";
     img.alt="img"
     divEl.appendChild(img);
