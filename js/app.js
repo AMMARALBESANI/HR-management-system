@@ -10,7 +10,7 @@ function addEmployer(e) {
   let fullName = e.target.fullName.value;
   let department = e.target.Department.value;
   let level = e.target.Level.value;
-  let ImageUrl = e.target.ImageUrl.value;
+  let ImageURL = e.target.ImageURL.value;
 
   new Employer(fullName, department, level, ImageUrl);
 
@@ -20,12 +20,12 @@ function addEmployer(e) {
   render(staff);
 }
 
-function Employer(fullName, department, level, imageURL, id) {
+function Employer(fullName, department, level, ImageURL, id) {
   this.id = idGenerator();
   this.fullName = fullName;
   this.department = department;
   this.level = level;
-  this.imageURL = imageURL;
+  this.ImageURL = ImageURL;
   this.salary = this.Salary();
   staff.push(this);
 
@@ -72,9 +72,9 @@ function render(staff) {
 
     let img = document.createElement("img");
     img.style.cssText = "width:50%;height:100px";
-    img.src = staff[i].ImageUr
-      ? `${staff[i].ImageUrl}`
-      : "placeholder-image.png";
+    img.src = staff[i].ImageURL
+       ? `${staff[i].ImageURL}`
+       : "placeholder-image.png";
     divEl.appendChild(img);
 
     // let hEl1 = document.createElement("h1");
