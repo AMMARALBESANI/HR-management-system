@@ -1,63 +1,56 @@
-`use restrict`
+`use restrict`;
 let staff = [];
 var netSalary;
 let form = document.getElementById("Emp-form");
 form.addEventListener("submit", addEmployer);
 
 function addEmployer(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    let fullName = e.target.fullName.value;
-    let department = e.target.Department.value;
-    let level = e.target.Level.value;
-    let ImageUrl = e.target.ImageUrl.value;
-    
-    let newEmployer = new Employer(fullName, department, level, ImageUrl);
+  let fullName = e.target.fullName.value;
+  let department = e.target.Department.value;
+  let level = e.target.Level.value;
+  let ImageUrl = e.target.ImageUrl.value;
 
-    let jsonArr = JSON.stringify(staff);
-    localStorage.setItem("ourStaff",jsonArr)
-    // const savedEmployers = [...JSON.parse(localStorage.getItem("ourStaff")), ...staff]
-    
-    // localStorage.setItem("ourStaff", savedEmployers);
+  new Employer(fullName, department, level, ImageUrl);
 
-    newEmployer.render()
-    // newEmployer.salary()
+  let jsonArr = JSON.stringify(staff);
+  localStorage.setItem("ourStaff", jsonArr);
 
-    // newEmployer.employerId();
+  render(staff);
 }
 
 function Employer(fullName, department, level, imageURL, id) {
-    this.id = idGenerator();
-    this.fullName = fullName;
-    this.department = department;
-    this.level = level;
-    this.imageURL = imageURL;
-    this.salary=this.Salary();
-    console.log(this)
-    staff.push(this);
+  this.id = idGenerator();
+  this.fullName = fullName;
+  this.department = department;
+  this.level = level;
+  this.imageURL = imageURL;
+  this.salary = this.Salary();
+  staff.push(this);
 
+  
 }
-
 
 Employer.prototype.Salary = function () {
-    let max;
-    let min;
-    let yourSalary;
-    if (this.level === "senior") {
-        max = 2000;
-        min = 1500;
-    } else if (this.level === "Mid-Senior") {
-        max = 1500;
-        min = 1000;
-    } else if (this.level === "junior") {
-        max = 1000;
-        min = 500;
-    }
-    yourSalary = Math.floor(Math.random() * (max - min) + min);
-    netSalary = yourSalary - (yourSalary * (7.5 / 100));
+  let max;
+  let min;
+  let yourSalary;
+  if (this.level === "senior") {
+    max = 2000;
+    min = 1500;
+  } else if (this.level === "Mid-Senior") {
+    max = 1500;
+    min = 1000;
+  } else if (this.level === "junior") {
+    max = 1000;
+    min = 500;
+  }
+  yourSalary = Math.floor(Math.random() * (max - min) + min);
+  netSalary = yourSalary - yourSalary * (7.5 / 100);
 
-    return netSalary;
-}
+  return netSalary;
+};
 
 // Employer.prototype.employerId = function () {
 //     // this.id = idGenerator();
@@ -65,62 +58,47 @@ Employer.prototype.Salary = function () {
 // }
 
 function idGenerator() {
-    return Math.floor(1000 + Math.random() * 9000);
-};
+  return Math.floor(1000 + Math.random() * 9000);
+}
 
+function render(staff) {
+  let sec = document.getElementById("container");
+  sec.innerHTML = "";
 
-
-
-Employer.prototype.render = function () {
-    let sec = document.getElementById("container");
-
+  for (let i = 0; i < staff.length; i++) {
     let divEl = document.createElement("div");
-    divEl.style.cssText = "border:solid;display:flex;flex-direction:column;align-items:center;width:15%;margin:5px 5px;text-align: left;";
+    divEl.style.cssText =
+      "border:solid;display:flex;flex-direction:column;align-items:center;width:15%;margin:5px 5px;text-align: left;";
+
+    let img = document.createElement("img");
+    img.style.cssText = "width:50%;height:100px";
+    img.src = staff[i].ImageUr
+      ? `${staff[i].ImageUrl}`
+      : "placeholder-image.png";
+    divEl.appendChild(img);
+
+    // let hEl1 = document.createElement("h1");
+    // hEl1.textContent = `TEST`;
+    // divEl.appendChild(hEl1);
+
+    let h2El = document.createElement("h2");
+    h2El.textContent = ` Name:${staff[i].fullName} id:${staff[i].id}`;
+    divEl.appendChild(h2El);
+
+    let pEl1 = document.createElement("p");
+    pEl1.textContent = `department:${staff[i].department}`;
+    divEl.appendChild(pEl1);
+
+    let pEl2 = document.createElement("p");
+    pEl2.textContent = `level:${staff[i].level}`;
+    divEl.appendChild(pEl2);
+
+    let h2El2 = document.createElement("h2");
+    h2El2.textContent = `Salary:${staff[i].salary}`;
+    divEl.appendChild(h2El2);
 
     sec.appendChild(divEl);
-
-    getStaff()
-
-    if (staff == null) {
-        staff = []
-    };
-
-
-
-    for (let i = 0; i < staff.length; i++) {
-
-        let img = document.createElement("img");
-        img.style.cssText = "width:50%;height:100px"
-        img.src = `${staff[i].ImageUrl}`;
-        divEl.appendChild(img);
-
-        // let hEl1 = document.createElement("h1");
-        // hEl1.textContent = `TEST`;
-        // divEl.appendChild(hEl1);
-
-        let h2El = document.createElement("h2");
-        h2El.textContent = ` Name:${staff[i].fullName} id:${this.id}`;
-        divEl.appendChild(h2El);
-
-
-
-        let pEl1 = document.createElement("p");
-        pEl1.textContent = `department:${staff[i].department}`;
-        divEl.appendChild(pEl1);
-
-        let pEl2 = document.createElement("p");
-        pEl2.textContent = `level:${staff[i].level}`;
-        divEl.appendChild(pEl2);
-
-        let h2El2 = document.createElement("h2");
-        h2El2.textContent = `Salary:${this.salary}`;
-        divEl.appendChild(h2El2);
-
-
-
-    }
-
-
+  }
 }
 
 // function idGenerator(){
@@ -135,7 +113,6 @@ Employer.prototype.render = function () {
 // let Rana = new Employer("1005", "Rana Saleh", "Development", "junior");
 //  let Hadi = new Employer("1006", "	Hadi Ahmad", "Finance", "Mid-Senior");
 
-
 //  for(let i=0;i<staff.length;i++){
 
 //     staff[i].Salary();
@@ -143,16 +120,19 @@ Employer.prototype.render = function () {
 //     console.log(staff[i].render())
 // }
 
-
-
 function getStaff() {
-    let jsonArr = localStorage.getItem("ourStaff");
-    let dataFormStorage = JSON.parse(jsonArr);
-    if(dataFormStorage) staff = dataFormStorage;
+  let onWindowLoad = true;
+  let jsonArr = localStorage.getItem("ourStaff");
+  let dataFormStorage = JSON.parse(jsonArr);
+
+  if (dataFormStorage != null) {
+    staff = dataFormStorage;
+  }
+
+  if (onWindowLoad) {
+    render(staff);
+    onWindowLoad = false;
+  }
 }
 
-
-
- getStaff()
-
-
+getStaff();
