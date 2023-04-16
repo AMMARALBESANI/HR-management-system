@@ -71,10 +71,10 @@ function render(staff) {
       "border:solid;display:flex;flex-direction:column;align-items:center;width:15%;margin:5px 5px;text-align: left;";
 
     let img = document.createElement("img");
-    img.style.cssText = "width:50%;height:100px";
-    img.src = staff[i].ImageURL
-       ? `${staff[i].ImageURL}`
-       : "placeholder-image.png";
+    img.style.cssText = "width:50%;height:100px"
+    img.src= `${this.ImageUrl}`? `${this.ImageUrl}`:
+    "https://icon-library.com/images/employee-icon-png/employee-icon-png-15.jpg";
+    img.alt="img"
     divEl.appendChild(img);
 
     // let hEl1 = document.createElement("h1");
